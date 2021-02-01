@@ -1,0 +1,687 @@
+/* fonts & icons */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css');
+
+/** CSS RESET **/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+    /* min-height: 100vh; */
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    background: var(--light);
+    font-family: "Source Code Pro", sans-serif;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* remove margin & set inline */
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+/* change color of all anchors */
+
+a, a:visited, a:hover {
+    color: var(--blue);
+}
+
+/** CSS RESET END **/
+
+/* colors */
+
+:root {
+    --blue: #171eaa;
+    --grey: #E8E8E8;
+    --light: #f8f1f1;
+}
+
+/* buttons */
+
+.btn-primary {
+    background: var(--blue);
+    color: white;
+    padding: 8px;
+    border: none;
+    font-weight: 600;
+    outline: none;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.btn-checkout {
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.order-complete {
+    width: 80%;
+    margin: 30px auto auto auto;
+}
+
+/* flashed messages // errors */
+
+.site-not-found {
+    text-align: center;
+    margin-top: 300px;
+}
+
+.flashed-message-success {
+    font-size: 12px;
+    background: green;
+    color: white;
+    border-radius: 3px;
+}
+
+/* Loading Spinner */
+
+.loading-container {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--grey);
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading {
+    height: 100px;
+    text-align: center;
+}
+
+/* demo notice */
+
+.demo-notice {
+    text-align: center;
+    background: red;
+    padding: 10px;
+    color: white;
+}
+
+/* nav */
+
+nav {
+    text-align: center;
+}
+
+nav ul {
+    padding-top: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+nav ul li:not(:last-child){
+    padding-right: 20px;
+}
+
+/* footer */
+
+footer {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+/* index, About, Fees, Login */
+
+.index-content, .about-content, .fees-content, .login-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 300px;
+    margin: 200px auto 0 auto;
+    text-align: center;
+}
+
+.index-content h2, .about-content h2, .fees-content h2, .login-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.index-content p, .index-content button, p.about-p  {
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+/* login form */
+
+form.auth-form {
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.auth-form label {
+    text-align: left;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.form-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.flashed-message-auth {
+    margin-top: 20px;
+    background: red;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+}
+
+/* edit */
+
+.container {
+    display: flex;
+}
+
+.mobile-edit-message {
+    display: none;
+    text-align: center;
+}
+
+/* left edit area */
+
+.left {
+    width: 25%;
+    max-width: 350px;
+    min-width: 250px;
+    height: 100vh;
+    background: var(--grey);
+    position: relative;
+}
+
+.add-product-details {
+    padding: 20px;
+}
+
+.edit-form label {
+    font-size: 12px;
+    padding-bottom: 2px;
+}
+
+.edit-form input, textarea, select {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+input[type="number"] {
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+}
+
+.form-price-wrapper {
+    display: flex;
+}
+
+.edit-form-img-upload {
+    background: white;
+    border-radius: 2px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+h6#file-plus {
+    border: 1px solid #ddd;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    border-radius: 2px;
+    margin-left: 10px;
+}
+
+.upload-img-input {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: -41px;
+    opacity: 0;
+}
+
+.preview-img {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    display: none;
+}
+
+img#preview-uploaded-img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.create-product-next {
+    position: absolute;
+    bottom: 10px;
+    width: 90%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+/* right edit area */
+
+.right {
+    width: 100%;
+}
+
+.product-heading {
+    text-align: center;
+    background: white;
+    font-size: 9px;
+    border-bottom: 2px solid #ddd;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-edit-container, .show-order-information {
+    max-width: 500px;
+    margin: 100px auto 0 auto;
+}
+
+.view-edit-container h1 {
+    margin-bottom: 10px;
+}
+
+.view-edit-img {
+    margin-bottom: 20px;
+}
+
+.product-title {
+    text-align: center;
+    font-size: 10px;
+}
+
+.product-desc {
+    word-break: break-word;
+    font-size: 13px;
+    text-align: center;
+}
+
+h1#edit-description {
+    font-weight: 300;
+}
+
+.product-price {
+    text-align: center;
+    font-size: 13px;
+    color: green;
+}
+
+h1#edit-contact, #edit-copyright {
+    font-size: 10px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: -20px;
+}
+
+/* register */
+
+.register {
+    display: none;
+    padding: 20px;
+}
+
+.auth-error, .password-error-two, .url-error {
+    display: none;
+    font-size: 10px;
+    background: red;
+    color: white;
+    padding: 10px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+}
+
+.url-error {
+    margin-bottom: 10px;
+}
+
+/* dashboard */
+
+.mobile-menu {
+    display: none;
+}
+
+.close-menu {
+    display: none;
+    position: absolute;
+    right: 17px;
+    top: 12px;
+    font-size: 20px;
+    color: red;
+}
+
+.edit-product-wrapper.dashboard {
+    display: none;
+}
+
+.return-home {
+    padding-left: 20px;
+}
+
+.dashboard-links {
+    margin-top: 350px;
+    position: relative;
+}
+
+.dashboard-links ul li {
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 37px;
+}
+
+li.stripe-li {
+    width: 70%;
+    margin: 0 auto;
+}
+
+li.stripe-li:hover {
+   background: none!important;
+}
+
+.dashboard-links ul li:hover{
+    background: #ddd;
+}
+
+.settings {
+    display: none;
+}
+
+.settings .return-home {
+    padding-left: 14px;
+}
+
+form.url-form {
+    padding: 10px;
+}
+
+form.url-form label {
+    font-size: 11px;
+}
+
+p.custom-url {
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+
+input#store_url {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.store-url-error {
+    display: none;
+    background: red;
+    color: white;
+}
+
+.edit-product-wrapper.dashboard .preview-img {
+    display: block;
+}
+
+.order-tab {
+    display: none;
+}
+
+.contact-email-error {
+    display: none;
+    background: red;
+    color: white;
+    border-radius: 4px;
+}
+
+.no-orders {
+    text-align: center;
+}
+
+/** order tab when clicked **/
+
+.order-width {
+   max-width: 500px;
+   width: 100%; 
+}
+
+.order-block {
+    background: white;
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.order-block-top, .order-block-middle {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.color-grey {
+    color: grey;
+}
+.color-green {
+    color: green;
+}
+
+/** order information to the right **/
+
+.show-order-information {
+    display: none;
+}
+
+.show-order-information {
+    background: white;
+    padding: 50px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.order-complete {
+    display: none;
+}
+
+.order-update-fail {
+    background: red;
+    color: white;
+    display: none;
+    border-radius: 3px;
+}
+
+.order-update-success {
+    background: green;
+    color: white;
+    border-radius: 3px;
+    display: none;
+}
+
+/* shop page */
+
+.shop-img {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.payment-not-setup {
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.return-to-dashboard {
+    background: var(--blue);
+    padding: 10px;
+}
+
+.return-to-dashboard a {
+    color: white;
+    text-decoration: none;
+}
+
+/* order confirmation */
+
+.view-edit-container.order-confirmation {
+    max-width: 600px;
+    background: white;
+    padding: 30px;
+    border-radius: 3px;
+    color: grey;
+}
+
+.order-confirmation h1 {
+    font-weight: 300;
+}
+
+.order-confirmation h3 {
+    color: black;
+    margin-bottom: 10px;
+}
+
+h3.return-to-seller {
+    font-size: 14px;
+    background: var(--blue);
+    display: inline-block;
+    color: white;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 3px;
+}
+
+.align {
+    text-align: center;
+}
+
+p.shipping-address {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+h5.help-with-order {
+    text-align: center;
+}
+
+/* media queries */
+
+@media screen and (min-width: 801px){
+    .right {
+        display: block!important;
+    }
+    .close-menu {
+        display: none!important;
+    }
+    .mobile-edit-message {
+        display: none!important;
+    }
+}
+
+@media screen and (max-width:800px){
+    /* enable menu button on dashboard */
+    .mobile-menu {
+        display: block;
+        position: absolute;
+        left: 10px;
+        top: 12px;
+    }
+    .dashboard-links {
+        margin-top: 250px;
+    }
+    .left {
+        display: none;
+    }
+    .container {
+        flex-wrap: wrap;
+    }
+    .left {
+        width: 100%;
+        max-width: 100%;
+    }
+    .mobile-edit-message {
+        display: block;
+    }
+}
+
+@media screen and (max-width:600px){
+    .view-edit-container {
+        max-width: 80%;
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width:390px){
+    .shop-content .view-edit-container {
+        max-width: 80%;
+    }
+    .shop-content .shop-img {
+        max-width: 100%;
+    }
+}

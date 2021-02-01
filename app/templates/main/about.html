@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/icons/site-icon.png')}}">
+    {% include 'include/styles.html' %}
+    <title>uSell</title>
+</head>
+<body>
+    {% include 'include/navigation.html' %}
+    <main>
+        <section class="about-content">
+            <h2>About</h2>
+            <p class="about-p">
+                uSell let's you create an online store in minutes, and sell your product.
+                <br>
+                <br>
+                We aim our service at users selling a single item in bulk, and want a more professional online presence compared to something like eBay, but don't want the bulk and cost of a full-scale CMS like SquareSpace or Shopify.
+                <br>
+                <br>
+                Help & Support: <a href="mailto:support@usell.com">support@usell.com</a>
+            </p>
+            <a href="{{url_for('editor.edit')}}">
+                <button type="button" class="btn-primary">Create Store</button>
+            </a>
+        </section>
+    </main>
+    {% include 'include/footer.html' %}
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/icons/site-icon.png')}}">
+    {% include 'include/styles.html' %}
+    <title>uSell</title>
+</head>
+<body>
+    <main>
+        <section class="container">
+            <div class="mobile-menu">
+                <i onclick="openNav()" class="fas fa-bars"></i>
+            </div>
+            <div class="left">
+                <i onclick="closeNav()" class="far fa-times-circle close-menu"></i>
+                <form method="POST" class="edit-form" autocomplete="off" action="/editor/create" enctype="multipart/form-data">
+                    <div class="add-product-details">
+                        <div class="form-input-wrapper">
+                            <label for="store-name">Store Name</label>
+                            {{form.store_name(id="store-heading")}}
+                        </div>
+
+                        <div class="form-input-wrapper">
+                            <label for="item-name">Item Name</label>
+                            {{form.item_name(id="item-name")}}
+                        </div>
+
+                        <div class="form-input-wrapper">
+                            <label for="item-description">Item Description</label>
+                            {{form.item_desc(id="edit-textarea")}}
+                        </div>
+
+                        <div class="form-input-wrapper">
+                            <label for="item-price">Price</label>
+                            <div class="form-price-wrapper">
+                                {{form.item_currency(id="currency")}}
+                                {{form.item_price(id="store-price")}}
+                            </div>
+                        </div>
+
+                        <div class="form-input-wrapper">
+                            <label for="item-image">Image</label>
+                            <div class="edit-form-img-upload">
+                                <div class="preview-img">
+                                    <img src="" id="preview-uploaded-img">
+                                </div>
+                                <h6 id="file-plus">+</h6>
+                                {{form.item_img(class="upload-img-input", onchange="loadFile(event)", accept="image/*")}}
+                            </div>
+                        </div>
+
+                        <div class="form-input-wrapper">
+                            <label for="user-email">Contact Email</label>
+                            {{form.contact_email(id="store-contact")}}
+                        </div>
+
+                        <button onclick="checkProductForm()" type="button" class="btn-primary create-product-next">Next</button>
+                    </div>
+                    <div class="register">
+                        <h1>Go Live</h1>
+                        <div class="form-input-wrapper">
+                            <label for="email">Email</label>
+                            {{register.email}}
+                            <div class="auth-error">
+                                <p>Email already exists. Please <a href="{{url_for('auth.login')}}">Login</a></p>
+                            </div>
+                        </div>
+                        <div class="form-input-wrapper">
+                            <label for="password">Password</label>
+                            {{register.password}}
+                        </div>
+
+                        <div class="form-input-wrapper">
+                            <label for="confirm_password">Confirm Password</label>
+                            {{register.confirm_password}}
+                            <div class="auth-error">
+                                <p>Passwords do not match</p>
+                            </div>
+                            <div class="auth-error">
+                                <p>Password must be a minimum of 8 characters </p>
+                            </div>
+                        </div>
+                        {{form.csrf_token}}
+                        {{register.csrf_token(id="csrf_two")}}
+                        <button onclick="submitEditForm()" type="button" class="btn-primary form-submit">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+            <div class="right">
+                <div class="product-heading">
+                    <h1 id="edit-heading">
+                    </h1>
+                </div>
+                
+                <div class="view-edit-container">
+                    <div class="mobile-edit-message">
+                        <h4>Click the menu button to click your first product. This website is best viewed on Desktop.</h4>
+                    </div>
+                    <div class="view-edit-img">
+                        <img src="" id="view-img">
+                    </div>
+                
+                    <div class="product-title">
+                        <h1 id="edit-title">
+                        </h1>
+                    </div>
+
+                    <div class="product-desc">
+                        <h1 id="edit-description">
+                        </h1>
+                    </div>
+
+                    <div class="product-price">
+                        <h1 id="edit-price">
+                        </h1>
+                    </div>
+
+                    <div class="product-contact">
+                        <h1 id="edit-contact">
+                             
+                        </h1>
+                    </div>
+
+                    <div class="product-copyright">
+                        <h1 id="edit-copyright">
+
+                        </h1>
+                    </div>
+                
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include 'include/scripts.html' %}
+</body>
+</html>

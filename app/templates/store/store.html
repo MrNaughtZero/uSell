@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/icons/site-icon.png')}}">
+    {% include 'include/styles.html' %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <title>uSell - @{{usr.store_url}}</title>
+</head>
+<body>
+    {% include 'include/loading.html' %}
+    <section class="shop-content">
+        <div class="right">
+            {% if current_user.is_authenticated %}
+                <div class="return-to-dashboard">
+                    <a href="{{url_for('seller.dashboard')}}">
+                        <h3>Visit Dashboard</h3>
+                    </a>
+                </div>
+            {% endif %}
+            <div class="product-heading">
+                {% for item in usr.product %}
+                    <h1 id="edit-heading">
+                        {{item.store_name}}
+                    </h1>
+                {% endfor %}
+            </div>
+            
+            <div class="view-edit-container">
+                {% set desc = namespace(text='') %}
+                {% for product in usr.product %}
+                    <div class="shop-img">
+                        <img src="{{product.image}}" alt="{{usr.store_url}}'s product image">
+                    </div>
+                
+                    <div class="product-title">
+                        <h1 id="edit-title">
+                            {{product.item_name}}
+                        </h1>
+                    </div>
+
+                    <div class="product-desc">
+                        <h1 id="edit-description">
+                            {{item_desc}}
+                            {% set desc.text = product.item_desc %}
+                        </h1>
+                    </div>
+
+                    <div class="product-price">
+                        <h1 id="edit-price">
+                            {{product.item_currency|replace('gbp', '£')|replace('usd', '$')}}{{product.item_price}}
+                        </h1>
+                    </div>
+                    {% if usr.activated == false %}
+                        <div class="payment-not-setup">
+                            <h4>{{usr.store_url}} has not setup their account. Once they setup their account, you can purchase.</h4>
+                        </div>
+                    {% else %}
+                        <button onclick="createCheckoutSession('{{usr.store_url}}')" type="button" class="btn-primary btn-checkout">Checkout</button>
+                    {% endif %}
+                    <div class="product-contact">
+                        <h1 id="edit-contact">
+                            <a href="mailto:{{product.contact_email}}">
+                                {{product.contact_email}}
+                            </a>
+                        </h1>
+                    </div>
+
+                    <div class="product-copyright">
+                        <h1 id="edit-copyright">
+                            © {{usr.store_url}} 2021
+                        </h1>
+                    </div>
+                {% endfor %}
+            
+            </div>
+        </div>
+    </section>
+    <script>
+        document.querySelector('#edit-description').innerHTML = '{{desc.text}}'
+    </script>
+    {% include 'include/scripts.html' %}
+</body>
+</html>

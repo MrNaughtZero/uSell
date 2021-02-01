@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/icons/site-icon.png')}}">
+    {% include 'include/styles.html' %}
+    <title>uSell</title>
+</head>
+<body>
+    <main>
+        <section class="container">
+            <div class="mobile-menu">
+                <i onclick="openNav()" class="fas fa-bars"></i>
+            </div>
+            <div class="left">
+                <i onclick="closeNav()" class="far fa-times-circle close-menu"></i>
+                <div class="dashboard-links">
+                    <ul>
+                        <li onclick="showStore()">
+                            Store
+                        </li>
+                        <li onclick="showOrders()">
+                            Orders
+                        </li>
+                        <li onclick="showSettings()">
+                            Settings
+                        </li>
+                        
+                        {% if usr.activated == false %}
+                            <li class="stripe-li">
+                                <a href="{{url_for('payment.link_stripe')}}">
+                                    <button type="button" class="btn-primary btn-stripe">Connect Stripe</button>
+                                </a>
+
+                                
+                            </li>
+                        {% endif %}
+
+                        {% if message !=[] %}
+                                <li>
+                                    <div class="flashed-message-success">
+                                        {{message[0]}}
+                                    </div>
+                                </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="edit-product-wrapper dashboard">
+                    <div class="return-home">
+                        <h5 onclick="goHome()"><i class="fas fa-arrow-circle-left"></i> Back</h5>
+                    </div>
+                    {% set product_id = namespace('') %}
+                    {% for item in usr.product %}
+                        {% set product_id.value = item.product_id %}
+                    {% endfor %}
+                    <form method="POST" class="edit-form" autocomplete="off" action="/editor/update/{{product_id.value}}" enctype="multipart/form-data">
+                        <div class="add-product-details">
+                            {% for product in usr.product %}
+                                <div class="form-input-wrapper">
+                                    <label for="store-name">Store Name</label>
+                                    {{form.store_name(id="store-heading", value=product.store_name)}}
+                                </div>
+
+                                <div class="form-input-wrapper">
+                                    <label for="item-name">Item Name</label>
+                                    {{form.item_name(id="item-name", value=product.item_name)}}
+                                </div>
+
+                                <div class="form-input-wrapper">
+                                    <label for="item-description">Item Description</label>
+                                    {{form.item_desc(id="edit-textarea", required="True")}}
+                                    {% set textarea = product.item_description %}
+                                </div>
+
+                                <div class="form-input-wrapper">
+                                    <label for="item-price">Price</label>
+                                    <div class="form-price-wrapper">
+                                        {{form.item_currency(id="currency", value=product.item_currency)}}
+                                        {{form.item_price(id="store-price", value=product.item_price)}}
+                                    </div>
+                                </div>
+
+                                <div class="form-input-wrapper">
+                                    <label for="item-image">Image</label>
+                                    <div class="edit-form-img-upload">
+                                        <div class="preview-img">
+                                            <img src="{{product.image}}" id="preview-uploaded-img" alt="{{usr.store_url}}'s product image">
+                                        </div>
+                                        <h6 id="file-plus">+</h6>
+                                        {{form.item_img(class="upload-img-input", onchange="loadFile(event), changeInput(event)", required="false", accept="image/*")}}
+                                    </div>
+                                </div>
+
+                                <div class="form-input-wrapper">
+                                    <label for="user-email">Contact Email</label>
+                                    {{form.contact_email(id="store-contact", value=product.contact_email)}}
+                                    <div class="contact-email-error">
+                                        Please enter a valid email
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                            <button onclick="validateEditForm()" type="button" class="btn-primary create-product-next">Update Product</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="order-tab">
+                    <div class="return-home">
+                        <h5 onclick="goHome()"><i class="fas fa-arrow-circle-left"></i> Back</h5>
+                    </div>
+                    {% if orders == [] %}
+                        <div class="no-orders">
+                            <h1>You have no orders</h1>
+                        </div>
+                    {% endif %}
+                    <div class="all-orders">
+                        {% for i in orders %}
+                            <a onclick="fetchOrder('{{i.order_id}}')">
+                                <div class="order-block">
+                                    <div class="order-block-top">
+                                        <h4>Order <span class="color-grey">#{{i.order_id}}</span></h4>
+                                    </div>
+                                    <div class="order-block-middle">
+                                        <h4>Email: <span class="color-grey">{{i.email}}</span></h4>
+                                        <h4>Total: <span class="color-grey">{{i.currency|replace('gbp', '£') | replace('usd', '$')}}{{i.price_paid}}</span></h4>
+                                    </div>
+                                    <div class="order-block-bottom">
+                                        <h4 class="order-status-{{i.order_id}}">Status: <span class="color-green">{{i.status}}</span></h4>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="settings">
+                    <div class="return-home">
+                        <h5 onclick="goHome()"><i class="fas fa-arrow-circle-left"></i> Back</h5>
+                    </div>
+                    <form class="url-form">
+                        <div class="form-input-wrapper">
+                            <label for="url">Custom Url</label>
+                            <p class="custom-url">
+                                {% if usr.store_url != None %}
+                                    <a id="url-anchor" target="_blank" href="/@{{usr.store_url}}">https://usell.com/@{{usr.store_url}}</a>
+                                {% else %}
+                                    <a id="url-anchor" target="_blank" href="/@{{usr.store_name}}">https://usell.com/</a>
+                                {% endif %}
+                            </p>
+                            {{store.store_url}}
+                            <div class="store-url-error">
+                                Minimum 3 characters 
+                            </div>
+                        </div>
+                        <div class="url-error">
+                            <p>Store Name is not available.</p>
+                        </div>
+                        <button onclick="checkStoreAvailability()" type="button" class="btn-primary">Check Availability</button>
+                    </form>
+
+                    {% if message != []%}
+                        <div class="flashed-message">
+                            {% if message[0] != 'Stripe successfully linked' %}
+                                {{message[0] }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="right">
+                <div class="product-heading">
+                    {% for item in usr.product %}
+                        <h1 id="edit-heading">
+                            {{item.store_name}}
+                        </h1>
+                    {% endfor %}
+                </div>
+                    
+                <div class="view-edit-container">
+                    {% set textarea = namespace(textarea = '') %}
+                    {% for i in usr.product %}
+                        <div class="view-edit-img">
+                            <img src="{{i.image}}" id="view-img" alt="{{usr.store_url}}'s product image">
+                        </div>
+                    
+                        <div class="product-title">
+                            <h1 id="edit-title">
+                                {{i.item_name}}
+                            </h1>
+                        </div>
+
+                        <div class="product-desc">
+                            <h1 id="edit-description">
+                                {{i.item_desc}}
+                                {% set textarea.text = i.item_desc %}
+                            </h1>
+                        </div>
+
+                        <div class="product-price">
+                            <h1 id="edit-price">
+                                {{i.item_currency|replace('gbp', '£')|replace('usd', '$')}}{{i.item_price}}
+                            </h1>
+                        </div>
+
+                        <div class="product-contact">
+                            <h1 id="edit-contact">
+                                {{i.contact_email}}
+                            </h1>
+                        </div>
+
+                        <div class="product-copyright">
+                            <h1 id="edit-copyright">
+                                © {{usr.store_name}} 2021
+                            </h1>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="show-order-information">
+                    <h2 id="view-order-number"></h2>
+                    <h4 id="view-order-email"></h4>
+                    <h4>SHIPPING TO:</h4>
+                    <p id="view-order-shipping">
+                    </p>
+                    <button type="button" class="btn-primary order-complete">
+                        MARK AS COMPLETE
+                    </button>
+
+                
+                    <div class="order-update-fail">
+                        <h3>Something went wrong. Please try again later</h3>
+                    </div>
+                    <div class="order-update-success">
+                        <h3>Order has been marked as fulfilled.</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include 'include/scripts.html' %}
+    <script>
+        document.querySelector('#edit-textarea').value = "{{textarea.text}}";
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% include 'include/styles.html' %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <title>uSell - Order #{{order.order_id}}</title>
+</head>
+<body>
+    <section class="shop-content">
+        <div class="right">
+            <div class="product-heading">
+                <h1 id="edit-heading">
+                    Order #{{order.order_id}}
+                </h1>
+            </div>
+            <a href="{{url_for('main.user_store', store_url=usr.store_url)}}">
+                <h3 class="return-to-seller">Return to sellers page</h3>
+            </a>
+            {% for item in order.shipping %}
+                <div class="view-edit-container order-confirmation">
+                    <h1 class="thank-you-header">Thanks for your order, {{item.name}}.</h1>
+                    <h3 class="align">Email: {{order.email}}</h3>
+                    <h3 class="align">Shipping to:</h3>
+                    <p class="shipping-address">
+                        {{item.name}}
+                        <br>
+                        {{item.line_one}}
+                        {% if item.line_two is not none %}
+                            <br>
+                            {{item.line_two}}
+                        {% endif %}
+                        <br>
+                        {{item.city}}
+                        <br>
+                        {{item.post_code}}
+                        <br>
+                        {{item.country}}
+                    </p>
+
+                    <h5 class="help-with-order">
+                        For help with your order, please contact the seller
+                    </h5>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+</html>

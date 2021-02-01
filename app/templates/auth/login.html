@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/icons/site-icon.png')}}">
+    {% include 'include/styles.html' %}
+    <title>uSell</title>
+</head>
+<body>
+    {% include 'include/navigation.html' %}
+    <main>
+        <section class="login-content">
+            <h2>Login</h2>
+            <form method="POST" class="auth-form" action="/auth/login/attempt">
+                <div class="form-input-wrapper">
+                    <label for="email">Email</label>
+                    {{form.email(id='login-email')}}
+                </div>
+                <div class="form-input-wrapper">
+                    <label for="password">Password</label>
+                    {{form.password(id='login-password')}}
+                </div>
+                {{form.csrf_token}}
+                <button type="submit" class="btn-primary btn-auth">Login</button>
+            </form>
+            {% if message !=[] %}
+                <div class="flashed-message-auth">
+                    {{message[0]}}
+                </div>
+            {% endif %}
+        </section>
+    </main>
+    {% include 'include/footer.html' %}
+</body>
+</html>

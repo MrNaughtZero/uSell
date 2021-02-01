@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/icons/site-icon.png')}}">
+    {% include 'include/styles.html' %}
+    <title>uSell</title>
+</head>
+<body>
+    <div class="demo-notice">This is demo. No payments will be processed</div>
+    {% include 'include/navigation.html' %}
+    <main>
+        <section class="index-content">
+            <h2>uSell</h2>
+            <p class="index-p">
+                Just sell your stuff
+            </p>
+            <a href="{{url_for('editor.edit')}}">
+                <button type="button" class="btn-primary">Create Store</button>
+            </a>
+
+            <p>
+                By <a href="https://neilmcnaught.dev" target="_blank">NeilMcnaught.dev</a>
+            </p>
+        </section>
+    </main>
+    {% include 'include/footer.html' %}
+</body>
+</html>

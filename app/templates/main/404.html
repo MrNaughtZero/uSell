@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/icons/site-icon.png')}}">
+    {% include 'include/styles.html' %}
+    <title>uSell</title>
+</head>
+<body>
+    <main>
+        <div class="right">
+            <div class="product-heading">
+                <a href="{{url_for('main.index')}}">
+                    <h1 id="edit-heading">
+                        uSell
+                    </h1>
+                </a>
+            </div>
+            <div class="site-not-found">
+                <h1>Site Not Found</h1>
+                <h1>:(</h1>
+            </div>
+        </div>
+    </main>
+    {% include 'include/footer.html' %}
+</body>
+</html>
